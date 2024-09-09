@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managge Users</title>
+    <link rel="stylesheet" href="css/manageUsers.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../images/policeLogo.jpg" alt="Malawi Police Logo">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/adminPanel">Dashboard</a></li>
+                    <li><a href="#">ManageUsers</a></li>
+                    <li><a href="#">ManageApplications</a></li>
+                    <li><a href="#">SystemSettings</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+            </nav>
+            <div class="help-support">
+                <a href="#">Help/Support</a>
+            </div>
+        </aside>
+        <!-- Main Section -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div>
+                    <h1>Malawi Police Service</h1>
+                </div>
+                <div class="notification-profile">
+                    <div class="notification">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="user-profile">
+                        <img src="../images/profile1.png" alt="Admin Profile Picture">
+                        <span>Admin Name</span>
+                        <div class="dropdown-content">
+                            <a href="#">Profile</a>
+                            <a href="#">Settings</a>
+                            <a href="#">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Main Dashboard Content -->
+            <main>
+                <section class="manage-users">
+                    <h2>Manage Users</h2>
+                    <div class="top-bar">
+                        <input type="text" placeholder="Search Users..." required>
+                        <button class="search-user">Search</button>
+                        <button class="add-user-btn">Add New User</button>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Example row -->
+                            <tr>
+                                <td>1</td>
+                                <td>Dan M'mambo</td>
+                                <td>dmmambo@example.com</td>
+                                <td>Police Officer</td>
+                                <td>Active</td>
+                                <td>
+                                    <button class="edit-btn">Edit</button>
+                                    <button class="delete-btn">Delete</button>
+                                </td>
+                            </tr>
+                            <!-- More rows -->
+                            <tr>
+                                <td>1</td>
+                                <td>Dan M'mambo</td>
+                                <td>dmmambo@example.com</td>
+                                <td>Police Officer</td>
+                                <td>Active</td>
+                                <td>
+                                    <button class="edit-btn">Edit</button>
+                                    <button class="delete-btn">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </main>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Malawi Police Service. All rights reserved.</p>
+    </footer>
+
+    <!-- Modal for adding/editing users -->
+    <!-- Modal for adding/editing users -->
+<div class="modal" id="user-modal">
+    <div class="modal-content">
+        <h3>Add User</h3>
+        <form id="addUserForm" action="/manageUsers/add-user" method="POST">
+            <input type="text" id="name" name="fullName" placeholder="Full Name" required>
+
+            <input type="email" id="email" name="email" placeholder="Email Address" required>
+
+            <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+
+            <input type="password" id="password" name="password" placeholder="Password" required>
+
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+
+            <div class="input-group">
+                <!-- <label for="role">Role</label> -->
+                <select id="role " style="padding-right: 246px;" name="role" required>
+                    <option value="applicant">applicant</option>
+                    <option value="police-officer">police-officer</option>
+                    <option value="admin">admin</option>        
+                </select>
+            </div>
+
+            <div class="form-button">
+                <button type="submit">Save</button>
+                <button type="button" class="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+    <!-- JavaScript to handle modal functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const addUserBtn = document.querySelector('.add-user-btn');
+        const userModal = document.getElementById('user-modal');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        const addUserForm = document.getElementById('addUserForm');
+
+        // Show the modal when the "Add New User" button is clicked
+        addUserBtn.addEventListener('click', function () {
+            userModal.style.display = 'block';
+        });
+
+        // Hide the modal when the "Cancel" button is clicked
+        cancelBtn.addEventListener('click', function () {
+            userModal.style.display = 'none';
+        });
+
+        // Close the modal if the user clicks outside of the modal content
+        window.addEventListener('click', function (event) {
+            if (event.target == userModal) {
+                userModal.style.display = 'none';
+            }
+        });
+
+        // Handle form submission for adding a new user
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const addUserForm = document.getElementById('addUserForm');
+
+            addUserForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(addUserForm);
+                const data = {
+                    fullName: formData.get('fullName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    password: formData.get('password'),
+                    confirmPassword: formData.get('confirmPassword'),
+                    role: formData.get('role'),
+                    status: formData.get('status')
+                };
+
+                console.log(data); // Debugging step
+
+                if (data.password !== data.confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+                try {
+                    const response = await fetch('/manageUsers/add-user', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            alert(result.message);
+                            addUserForm.reset();
+                        } else {
+                            alert(result.error);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while adding the user.');
+                    }
+                });
+            });
+        });
+</script>
+</body>
+</html>

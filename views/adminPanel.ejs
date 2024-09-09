@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/adminPanel.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="../images/policeLogo.jpg" alt="Malawi Police Service">
+                <h2>Admin Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="manageUsers">Manage Users</a></li>
+                    <li><a href="#">Manage Applications</a></li>
+                    <li><a href="#">System Settings</a></li>
+                    <li><a href="#">Reports</a></li>
+                </ul>
+            </nav>
+            <div class="help-support">
+                <a href="#">Help/Support</a>
+            </div>
+        </aside>
+
+        <!-- Main Section -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div>
+                    <h1>Malawi Police Service</h1>
+                </div>
+                <div class="notification-profile">
+                    <div class="notification">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="user-profile">
+                        <img src="../images/profile1.png" alt="Admin Profile">
+                        <span>Admin Name</span>
+                        <div class="dropdown-content">
+                            <a href="#">Profile</a>
+                            <a href="#">Settings</a>
+                            <a href="logout">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Dashboard Content -->
+            <main>
+                <section class="overview">
+                    <!-- <h2>Admin Overview</h2> -->
+                    <div class="card">
+                        <h3>Total Users</h3>
+                        <p>250</p>
+                    </div>
+                    <div class="card">
+                        <h3>Pending Applications</h3>
+                        <p>15</p>
+                    </div>
+                    <div class="card">
+                        <a href="#">Review Application</a>
+                    </div>
+                </section>
+
+                <section class="recent-activity">
+                    <h2>Recent Activity</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>User Daniel M'mambo was added</td>
+                                <td>2024-08-30</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr>
+                                <td>Application ID 12345 reviewed</td>
+                                <td>2024-08-29</td>
+                                <td>Approved</td>
+                            </tr>
+                            <tr>
+                                <td>User Nelson Bwanali was added</td>
+                                <td>2024-08-30</td>
+                                <td>Completed</td>
+                            </tr>
+                            <tr>
+                                <td>Application ID 12345 reviewed</td>
+                                <td>2024-08-29</td>
+                                <td>Approved</td>
+                            </tr>
+                            <!-- Additional rows as needed -->
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- <section class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <button>Manage Users</button>
+                    <button>Review Applications</button>
+                    <button>System Settings</button>
+                </section> -->
+            </main>
+
+            <!-- Footer -->
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Malawi Police Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Police Clearance System</title>
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="../images/policeLogo.jpg" alt="Police Clearance System Logo">
+            </div>
+            <h2>Login Form</h2>
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="login-button">Login</button>
+                <p class="forgot-password"><a href="#">Forgot your password?</a></p>
+            </form>
+            <p class="create-account">Don't have an account? <a href="homePage">Create one</a></p>
+        </div>
+    </div>
+</body>
+</html>

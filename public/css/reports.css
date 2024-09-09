@@ -1,0 +1,283 @@
+/* Add styles to reports */
+body {
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    background-color: #375777;
+    width: 200px;
+    height: 100vh; /* Full height */
+    position: fixed;
+    top: 0;
+    left: 2px;
+    overflow-y: auto;
+    border-radius: 5px 0 0 0;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+    
+}
+
+.sidebar nav ul li {
+    margin: 10px 10px;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    background-color: #2C3E50;
+    border-radius: 4px;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: #f9f9f9;
+    color: black;
+}
+
+.sidebar .support {
+    position: absolute;
+    bottom: 40px;
+    width: 90%;
+}
+
+.sidebar .support a:hover {
+    background-color: #f9f9f9;
+    color: black;
+}
+
+header {
+    background-color: #f9f9f9;
+    padding: 10px 20px; 
+    height: 50px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    margin-left: 200px; /* Align with main section */
+    border-bottom: 1px #ccc solid;
+    margin-bottom: 30px;
+  }
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.notifications {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-icon {
+    font-size: 24px;
+}
+
+/* .notifications img {
+    width: 30px;
+} */
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #E74C3C;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+/* .notifications .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    color: #2C3E50;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 10px;
+    border-radius: 4px;
+} */
+
+.notifications:hover .dropdown-content {
+    display: block;
+}
+
+.separator {
+    height: 30px;
+    width: 2px;
+    background-color: #95A5A6;
+    margin: 0 20px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.user-profile img {
+    width: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1;
+}
+
+.user-profile:hover .dropdown-content {
+    display: block;
+}
+
+.user-profile .dropdown-content a {
+    color: #2C3E50;
+    padding: 8px 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.user-profile .dropdown-content a:hover {
+    background-color: #f4f4f4;
+}
+
+.reports {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 210px;
+}
+
+.reports h2 {
+    margin-bottom: 20px;
+    color: #2C3E50;
+}
+
+.report-filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.report-filters select,
+.report-filters input,
+.report-filters button {
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.report-filters .date-filter {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.report-filters .date-filter label {
+    margin-right: 5px;
+    color: #34495E;
+}
+
+.report-filters button {
+    background-color: #1ABC9C;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.report-filters button:hover {
+    background-color: #16A085;
+}
+
+.report-display {
+    margin-bottom: 20px;
+}
+
+.report-display h3 {
+    margin-bottom: 10px;
+    color: #2C3E50;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f4f4f4;
+    color: #2C3E50;
+}
+
+table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.download-report {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.download-report button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #1ABC9C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 50px;
+}
+
+.download-report button:hover {
+    background-color: #16A085;
+}
+
+.download-report button:last-child {
+    background-color: #3498DB;
+}
+
+.download-report button:last-child:hover {
+    background-color: #2980B9;
+}
+
+footer {
+    background-color: #043d75;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: 200px;
+}

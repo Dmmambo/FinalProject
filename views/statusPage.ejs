@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status</title>
+    <link rel="stylesheet" href="/css/statusPage.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Application Status</h1>
+            <nav>
+                <ul>
+                    <li><a href="/application">Home</a></li>
+                    <li><a href="/applicant/status">Status</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="status-container">
+            <h2>Your Police Clearance Application Status</h2>
+            <div class="status-details">
+                <p><strong>Application ID:</strong> <%= applicationId %></p>
+                <p><strong>Status:</strong> <%= status %></p>
+                <p><strong>Date Submitted:</strong> <%= dateSubmitted %></p>
+                <p><strong>Last Updated:</strong> <%= lastUpdated %></p>
+                <p><strong>Remarks:</strong> <%= remarks %></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Malawi Police Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

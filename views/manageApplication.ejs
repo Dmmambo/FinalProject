@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Applications</title>
+    <link rel="stylesheet" href="css/manageApplication.css">
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="/manageApplication">ManageApplicants</a></li>
+                <li><a href="/generateCertificate">GenerateCertificate</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="support"><a href="#">Help/Support</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="policeLogo.jpg" alt="Malawi Police Service">
+            <span style="font-size: xx-large;">Malawi Police Service</span>
+        </div>
+        <div class="header-right">
+            <div class="notifications">
+                <span class="notification-icon">🔔</span>
+                <span class="badge">3</span>
+                <!-- <div class="dropdown-content">
+                    <p>Application ID 12345 requires review</p>
+                    <p>Application ID 67896 pending</p>
+                    <p>New criminal record match found</p>
+                </div> -->
+            </div>
+            <div class="separator"></div>
+            <div class="user-profile">
+                <img src="profile-image.png" alt="Officer Profile">
+                <span>Officer Name</span>
+                <div class="dropdown-content">
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="manage-applications">
+            <h2>Manage Applications</h2>
+            <div class="search-filter">
+                <input type="text" placeholder="Search by Applicant Name or ID">
+                <select>
+                    <option value="">Filter by Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="denied">Denied</option>
+                </select>
+                <button>Search</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Applicant Name</th>
+                        <th>Application ID</th>
+                        <th>Status</th>
+                        <th>Date Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Daniel M'mambo</td>
+                        <td>123456</td>
+                        <td>Pending</td>
+                        <td>2024-08-15</td>
+                        <td>
+                            <button>View</button>
+                            <button>Approve</button>
+                            <button id="Deny">Deny</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Macfalyne Banda</td>
+                        <td>123456</td>
+                        <td>Pending</td>
+                        <td>2024-08-15</td>
+                        <td>
+                            <button>View</button>
+                            <button>Approve</button>
+                            <button id="Deny">Deny</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nelson Mananga</td>
+                        <td>123456</td>
+                        <td>Pending</td>
+                        <td>2024-08-15</td>
+                        <td>
+                            <button>View</button>
+                            <button>Approve</button>
+                            <button id="Deny">Deny</button>
+                        </td>
+                    </tr>
+                    <!-- More rows as needed -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Malawi Police Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>

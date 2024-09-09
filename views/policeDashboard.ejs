@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Officer Dashboard</title>
+    <link rel="stylesheet" href="css/policeDashboard.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="/manageApplication">ManageApplicants</a></li>
+                <li><a href="/generateCertificate">GenerateCertificate</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="support"><a href="#">Help/Support</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="policeLogo.jpg" alt="Malawi Police Service">
+            <span style="font-size: xx-large;">Malawi Police Service</span>
+        </div>
+        <div class="header-right">
+            <div class="notifications">
+                <span class="notification-icon">🔔</span>
+                <span class="badge">3</span>
+                <!-- <div class="dropdown-content">
+                    <p>Application ID 12345 requires review</p>
+                    <p>Application ID 67896 pending</p>
+                    <p>New criminal record match found</p>
+                </div> -->
+            </div>
+            <div class="separator"></div>
+            <div class="user-profile">
+                <img src="profile-image.png" alt="Officer Profile">
+                <span>Officer Name</span>
+                <div class="dropdown-content">
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="logout" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="search-section">
+            <input type="text" placeholder="Search Criminal Records by Fingerprint ID...">
+            <button>Search</button>
+        </section>
+
+        <section class="overview">
+            <div class="card">
+                <h2>Pending Applications</h2>
+                <p><span class="number">8</span> Applications Pending</p>
+            </div>
+            <div class="card">
+                <h2>Recent Activity</h2>
+                <p>Reviewed Application ID: 12345</p>
+            </div>
+        </section>
+
+        <section class="welcome-message">
+            <h2>Welcome, Officer!</h2>
+            <p>Select an option from the sidebar to get started.</p>
+            <p>Else pick up from where you stoped!</p>
+        </section>
+        <div class="add-criminal-details">
+            <!-- <h4>Add criminal details here!</h4> -->
+            <!-- Button to trigger modal -->
+            <button type="button" class="btn-primary" id="addCriminalBtn">Add Criminal Record</button>
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Malawi Police Service. All rights reserved.</p>
+    </footer>
+
+    <!-- Add Criminal Modal -->
+    <div class="modal" id="addCriminalModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" id="closeModal">&times;</button>
+            <h5 class="modal-title" id="addCriminalModalLabel">Add Criminal Record</h5>
+        </div>
+        <form action="/addCriminal" method="POST" id="addCriminalForm" enctype="multipart/form-data">
+            <div class="modal-body">
+            <div class="form-group">
+                <label for="criminalFullName">Full Name</label>
+                <input type="text" class="form-control" id="criminalFullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="crimeDetails">Crime Description</label>
+                <textarea class="form-control" id="crimeDiscription" name="crimeDiscription" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="sentence">Sentence</label>
+                <input type="text" class="form-control" id="sentence" name="sentence" required>
+            </div>
+            <div class="form-group">
+                <label for="dateOfCrime">Date of Crime</label>
+                <input type="date" class="form-control" id="dateOfCrime" name="dateOfCrime" required>
+            </div>
+            <!-- <div class="form-group">
+                <label for="fingerprintImage">Fingerprint Image</label>
+                <input type="file" class="form-control-file" id="fingerprintImage" name="fingerprintTemplate" accept="image/*" required>
+            </div> -->
+            </div>
+            <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save Record</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        window.history.forward();
+        // window.onbeforeunload = function() {
+        // return true;
+        // };
+
+        // Get the modal element
+        const modal = document.getElementById('addCriminalModal');
+
+        // Get the button that opens the modal
+        const addBtn = document.getElementById('addCriminalBtn');
+
+        // Get the element that closes the modal
+        const closeModal = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelModalBtn');
+
+        // When the user clicks on the add criminal record button, show the modal
+        addBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'block';
+        });
+    
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        
+        $(document).ready(function() {
+            // Hide the modal by default
+            $('#addCriminalModal').modal('hide');
+
+            // Show the modal when the add button is clicked
+            $('#addCriminalBtn').on('click', function() {
+                $('#addCriminalModal').modal('show');
+            });
+
+            // Handle form submission
+            $('#addCriminalForm').on('submit', function(e) {
+                e.preventDefault();
+
+                // Get form data
+                const formData = new FormData(this);
+
+                // Send the form data to the server using AJAX
+                $.ajax({
+                type: 'POST',
+                url: '/addCriminal',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log(response);
+                    // Hide the modal after submission
+                    $('#addCriminalModal').modal('hide');
+                    // Reload the page to display the new record
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+                });
+            });
+            });
+
+    </script>
+</body>
+</html>

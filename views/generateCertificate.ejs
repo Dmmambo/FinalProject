@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Certificate</title>
+    <link rel="stylesheet" href="css/generateCertificate.css">
+</head>
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="/manageApplication">ManageApplicants</a></li>
+                <li><a href="/generateCertificate">GenerateCertificate</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="support"><a href="#">Help/Support</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="policeLogo.jpg" alt="Malawi Police Service">
+            <span style="font-size: xx-large;">Malawi Police Service</span>
+        </div>
+        <div class="header-right">
+            <div class="notifications">
+                <span class="notification-icon">🔔</span>
+                <span class="badge">3</span>
+                <!-- <div class="dropdown-content">
+                    <p>Application ID 12345 requires review</p>
+                    <p>Application ID 67896 pending</p>
+                    <p>New criminal record match found</p>
+                </div> -->
+            </div>
+            <div class="separator"></div>
+            <div class="user-profile">
+                <img src="profile-image.png" alt="Officer Profile">
+                <span>Officer Name</span>
+                <div class="dropdown-content">
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="generate-certificate">
+            <h2>Generate Certificate</h2>
+            <div class="search-applicant">
+                <input type="text" placeholder="Search Applicant by Name or ID">
+                <button>Search</button>
+            </div>
+            <div class="applicant-details">
+                <h3>Applicant Details</h3>
+                <p>Name: Daniel M'mambo</p>
+                <p>ID: 123456</p>
+                <p>Status: Pending</p>
+            </div>
+            <div class="fingerprint-verification">
+                <h3>Fingerprint Verification</h3>
+                <input type="file" accept=".jpg, .jpeg, .png">
+                <button>Verify Fingerprints</button>
+            </div>
+            <div class="generate-actions">
+                <button>Generate Certificate</button>
+                <button>Deny Application</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Malawi Police Service. All rights reserved.</p>
+    </footer>
+</body>
+</html>
