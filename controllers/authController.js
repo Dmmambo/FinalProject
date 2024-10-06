@@ -7,52 +7,51 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-
 // Home page
-exports.home = (req, res) => {
+const home = (req, res) => {
     res.render('homePage', { user: req.session.user });
 };
 
-exports.application = (req, res) => {
+const application = (req, res) => {
     res.render('application');
 }
-exports.policeDashboard = (req, res) => (
+const policeDashboard = (req, res) => (
     res.render('policeDashboard')
 );
 // exports.revisedDashboard = (req, res) => (
 //     res.render('revisedDashboard')
 // );
 
-exports.manageApplication = (req, res) => (
+const manageApplication = (req, res) => (
     res.render('manageApplication')
 );
 
-exports.generateCertificate = (req, res) => (
+const generateCertificate = (req, res) => (
     res.render('generateCertificate')
 );
 
-exports.reports = (req, res) => (
+const reports = (req, res) => (
     res.render('reports')
 );
-exports.adminPanel = (req, res) => (
+const adminPanel = (req, res) => (
     res.render('adminPanel')
 );
 
-exports.manageUsers = (req, res) => (
+const manageUsers = (req, res) => (
     res.render('manageUsers')
 );
-exports.adduser = (req, res) => (
+const adduser = (req, res) => (
     res.render('adduser')
 );
-exports.login = (req, res) => {
+const login = (req, res) => {
     res.render('login');
 };
 
-exports.verifyGet = (req, res) => {
+const verifyGet = (req, res) => {
     res.render('verifyTOTP', { message: 'Hello! verify its you!' });
 };
 
-exports.status = (req, res) => {
+const status = (req, res) => {
     // Retrieve the applicant's application status from the database
     const applicationId = '12345'; 
     const status = 'In Progress'; 
@@ -71,7 +70,7 @@ exports.status = (req, res) => {
 };
 
 // Applicant Registration Route
-exports.createAccountPost= async(req, res) => {
+const createAccountPost = async(req, res) => {
     const { fullName, email, phone, password, confirmPassword } = req.body;
     console.log(req.body);
 
@@ -116,16 +115,21 @@ exports.createAccountPost= async(req, res) => {
 };
 
 // Admin Add User Route
-exports.addUser = async (req, res) => {
+const addUser = async (req, res) => {
     try {
         const { fullName, email, phone, password, confirmPassword, role } = req.body;
-        
-        console.log(req.body); // Debugging step
 
+        // Validate the request body
         if (!fullName || !email || !phone || !password || !confirmPassword || !role) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
+        // Validate the password strength
+        if (password.length < 8) {
+            return res.status(400).json({ error: "Password must be at least 8 characters long" });
+        }
+
+        // Check if the passwords match
         if (password !== confirmPassword) {
             return res.status(400).json({ error: "Passwords do not match" });
         }
@@ -146,21 +150,20 @@ exports.addUser = async (req, res) => {
             phone_number: phone,
             password: hashedPassword,
             role: role,
-            status:'active'
+            status: 'active'
         };
 
         await db.query('INSERT INTO users SET ?', newUser);
 
-        res.redirect('/login',json({ message: "User added successfully" }));
+        return res.status(201).json({ message: "User added successfully" });
     } catch (err) {
         console.error("Server error:", err);
-        res.status(500).json({ error: "Server error" });
+        return res.status(500).json({ error: "Server error" });
     }
 };
 
-exports.loginPost = async (req, res) => {
-    const { email, password} = req.body;
-    console.log(req.body);
+const loginPost = async (req, res) => {
+    const { email, password } = req.body;
 
     try {
         // Check if the user exists
@@ -180,16 +183,11 @@ exports.loginPost = async (req, res) => {
         }
 
         // Check the role to determine authentication method
-        
         if (foundUser.role === 'applicant') {
             req.session.user = foundUser;
             req.session.save();
-            // console.log(req.session); // Check if the session data is correct
-            // console.log("Redirecting to /application...");
-            res.redirect(302, '/application');
-
-        }
-           else if (foundUser.role === 'admin' || foundUser.role === 'police-officer') {
+            return res.redirect(302, '/application');
+        } else if (foundUser.role === 'admin' || foundUser.role === 'police-officer') {
             // Two-factor authentication for admins and police officers
 
             // Generate a TOTP secret if not already present
@@ -204,7 +202,7 @@ exports.loginPost = async (req, res) => {
             // Generate a TOTP code
             const token = speakeasy.totp({
                 secret: foundUser.totp_secret,
-                encoding: 'base32'
+                encoding: 'base32 '
             });
 
             console.log("Generated TOTP Token:", token);
@@ -219,7 +217,7 @@ exports.loginPost = async (req, res) => {
                     pass: 'GhyEZzIbJ5S6YHkc',
                 },
             });
-            
+
             await transporter.sendMail({
                 from: '"Your Service Name" <danielmmambo@gmail.com>',
                 to: foundUser.email,
@@ -229,23 +227,19 @@ exports.loginPost = async (req, res) => {
 
             // Save user information in session and redirect to verification page
             req.session.user = foundUser;
-            req.session.save();''
-            console.log(req.session);
-            // res.render('/verifyTOTP');
-           return res.redirect('/verifyTOTP'); // Adjust this route as needed
-            
+            req.session.save();
+            return res.redirect('/verifyTOTP');
         } else {
             return res.status(400).json({ error: "Invalid user role" });
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Server error" });
+        return res.status(500).json({ error: "Server error" });
     }
 };
 
-exports.verifyPost = async (req, res) => {
+const verifyPost = async (req, res) => {
     const { code } = req.body;
-    console.log(code);
 
     try {
         const user = req.session.user;
@@ -255,24 +249,17 @@ exports.verifyPost = async (req, res) => {
         }
 
         // Verify the TOTP code
-        console.log('Request Body:', req.body);
-
-        const token = req.body.token;
-        console.log('Token:', token);
-
         const expectedToken = speakeasy.totp({
-        secret: user.totp_secret,
-        encoding: 'base32',
+            secret: user.totp_secret,
+            encoding: 'base32',
         });
 
         const isVerified = speakeasy.totp.verify({
-        secret: user.totp_secret,
-        encoding: 'base32',
-        token: token,
-        window: 2, // 1-minute window for potential time drift
+            secret: user.totp_secret,
+            encoding: 'base32',
+            token: code,
+            window: 2, // 1-minute window for potential time drift
         });
-
-        console.log('Verification Result:', isVerified);
 
         if (isVerified) {
             // Clear TOTP from session
@@ -280,9 +267,9 @@ exports.verifyPost = async (req, res) => {
             req.session.isAuthenticated = true;
 
             if (user.role === 'admin') {
-                return res.redirect('/adminPanel'); // Adjust this route as needed
+                return res.redirect('/adminPanel');
             } else if (user.role === 'police-officer') {
-                return res.redirect('/policeDashboard'); // Adjust this route as needed
+                return res.redirect('/policeDashboard');
             }
         } else {
             console.log("Verification failed!");
@@ -290,21 +277,42 @@ exports.verifyPost = async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Server error" });
+        return res.status(500).json({ error: "Server error" });
     }
 };
 
-exports.logoutget = (req, res) => {
+const logoutget = (req, res) => {
     req.session.destroy((err) => {
-        console.log(req.session);
         if (err) {
             console.error('Error destroying session: ', err);
-            return res.redirect('/dashboard'); // Redirect to the dashboard if error occurs
+            return res.redirect('/dashboard');
         }
 
         // Redirect to the login page after successful logout
-        res.redirect('/login');
+        return res.redirect('/login');
     });
+};
+
+// authController.js
+
+module.exports = {
+    createAccountPost,
+    addUser,
+    loginPost,
+    verifyPost,
+    logoutget,
+    home,
+    application,
+    policeDashboard,
+    manageApplication,
+    generateCertificate,
+    reports,
+    adminPanel,
+    manageUsers,
+    adduser,
+    login,
+    verifyGet,
+    status,
 };
 
 //
