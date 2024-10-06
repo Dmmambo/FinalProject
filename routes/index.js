@@ -38,13 +38,14 @@ router.get('/manageUsers', authController.manageUsers);
 // router.get('/adduser', authController.adduser);
 router.get('/application/statusPage', authController.status);
 
-router.post('/register:?', authController.createAccountPost);
-router.post('/manageUsers/add-user:?', authController.addUser);
+// routes.js
+/*
+router.post('/register', authController.createAccountPost);
+router.post('/manageUsers/add-user', authController.addUser);
 router.post('/login', authController.loginPost);
 router.post('/verifyTOTP', authController.verifyPost);
-router.post('/addCriminal:?', authController.addRecords);
-router.post('/submit-application:?', authController.applyClearance);
-
-
+router.post('/addCriminal', authController.addRecords);
+router.post('/submit-application', authController.applyClearance);
+*/
 module.exports = router;
 
