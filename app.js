@@ -9,7 +9,7 @@ const axion = require('axios');
 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -53,7 +53,9 @@ const index = require('./routes/index');
 // const ensureAuthenticated = require('./routes/auth');
 
 // Use routes
-app.use('/', index);
+app.use('/', exports.home = (req, res) => {
+    res.render('homePage', { user: req.session.user });
+});
 
 // Start the server
 app.listen(PORT, () => {
