@@ -1,12 +1,9 @@
-// src/server.js
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const session = require('express-session'); // Import express-session
+const session = require('express-session');
 const crypto = require('crypto');
-const axion = require('axios');
-
-
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -20,15 +17,14 @@ app.set('view engine', 'ejs');
 
 // Set up session middleware
 const secretKey = crypto.randomBytes(32).toString('hex');
-
 app.use(session({
     secret: secretKey,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false}
+    cookie: { secure: false }
 }));
 
-// In app.js or index.js
+// Cache control middleware
 app.use((req, res, next) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.setHeader('Pragma', 'no-cache');
@@ -36,25 +32,21 @@ app.use((req, res, next) => {
     next();
 });
 
-// Error handling for file upload errors
-app.use((err, req, res, next) => {
-    if (err instanceof multer.MulterError) {
-        return res.status(400).json({ error: 'File upload error: ' + err.message });
-    } else if (err) {
-        return res.status(500).json({ error: 'Server error: ' + err.message });
-    }
-    next();
-});
-
-// console.log('Session secret key:', secretKey);
-
 // Import routes
-const index = require('./routes/index');
-// const ensureAuthenticated = require('./routes/auth');
+const indexRoutes = require('./routes/index');
 
 // Use routes
-app.use('/', exports.home = (req, res) => {
-    res.render('homePage', { user: req.session.user });
+app.use('/', indexRoutes);
+
+// Catch-all route for undefined routes
+app.use((req, res, next) => {
+    res.status(404).send("Sorry, the page you're looking for doesn't exist.");
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
 });
 
 // Start the server
