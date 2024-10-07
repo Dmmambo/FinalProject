@@ -11,27 +11,28 @@ const authController = require('../controllers/authController'); // Update this 
 //         res.redirect('/login');
 //     }
 // }
-
-function setNoCacheHeaders(req, res, next) {
+/*
+function (req, res, next) {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
     res.setHeader('Vary', 'Accept-Encoding, User-Agent');
     next();
 }
+*/
 
 // Define routes
 router.get('/', authController.home);
 router.get('/login', authController.login);
 router.get('/verifyTOTP', authController.verifyGet);
-router.get('/application', setNoCacheHeaders, authController.application);
-router.get('/policeDashboard', setNoCacheHeaders, authController.policeDashboard);
+router.get('/application',  authController.application);
+router.get('/policeDashboard',  authController.policeDashboard);
 router.get('/logout', authController.logoutget);
 
 router.get('/manageApplication', authController.manageApplication);
 router.get('/generateCertificate', authController.generateCertificate);
 router.get('/reports', authController.reports);
-router.get('/adminPanel', setNoCacheHeaders, authController.adminPanel);
+router.get('/adminPanel',  authController.adminPanel);
 router.get('/manageUsers', authController.manageUsers);
 // router.get('/register', authController.createAccount);
 
